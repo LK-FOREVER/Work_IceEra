@@ -1,0 +1,7 @@
+[
+   {"task_reward_num":20,"task_reward":[{"k":1001,"v":10}]},
+   {"task_reward_num":40,"task_reward":[{"k":1002,"v":11}]},
+   {"task_reward_num":60,"task_reward":[{"k":1003,"v":12}]},
+   {"task_reward_num":80,"task_reward":[{"k":1004,"v":13}]},
+   {"task_reward_num":100,"task_reward":[{"k":1005,"v":14}]}
+]

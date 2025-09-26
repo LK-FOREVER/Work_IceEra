@@ -1,0 +1,12 @@
+[
+   {"id":1,"task_name":"每日登录","task_reward_num":10},
+   {"id":2,"task_name":"升级1次员工","task_reward_num":15},
+   {"id":3,"task_name":"升级建筑","task_reward_num":12},
+   {"id":4,"task_name":"收获金币","task_reward_num":13},
+   {"id":5,"task_name":"收获金币1","task_reward_num":14},
+   {"id":6,"task_name":"收获金币2","task_reward_num":15},
+   {"id":7,"task_name":"收获金币3","task_reward_num":16},
+   {"id":8,"task_name":"收获金币4","task_reward_num":17},
+   {"id":9,"task_name":"收获金币5","task_reward_num":18},
+   {"id":10,"task_name":"收获金币6","task_reward_num":19}
+]

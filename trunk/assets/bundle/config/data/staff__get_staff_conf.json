@@ -1,0 +1,22 @@
+[
+   {"id":10001,"name":"可可","quality":3,"init_atk":20},
+   {"id":10002,"name":"香香","quality":3,"init_atk":21},
+   {"id":10003,"name":"阿福","quality":3,"init_atk":21},
+   {"id":10004,"name":"小安","quality":3,"init_atk":30},
+   {"id":10005,"name":"坤坤","quality":3,"init_atk":20},
+   {"id":10006,"name":"志学","quality":3,"init_atk":22},
+   {"id":10007,"name":"小飞","quality":3,"init_atk":25},
+   {"id":10008,"name":"伊凡","quality":3,"init_atk":28},
+   {"id":10009,"name":"苏珊","quality":3,"init_atk":29},
+   {"id":10010,"name":"欣然","quality":3,"init_atk":21},
+   {"id":10011,"name":"浩云","quality":4,"init_atk":35},
+   {"id":10012,"name":"威哥","quality":4,"init_atk":37},
+   {"id":10013,"name":"向阳","quality":4,"init_atk":38},
+   {"id":10014,"name":"娜娜","quality":4,"init_atk":39},
+   {"id":10015,"name":"奈奈","quality":4,"init_atk":35},
+   {"id":10016,"name":"列夫","quality":4,"init_atk":40},
+   {"id":10017,"name":"七七","quality":5,"init_atk":40},
+   {"id":10018,"name":"金成","quality":5,"init_atk":45},
+   {"id":10019,"name":"秀岚","quality":5,"init_atk":39},
+   {"id":10020,"name":"蝶舞","quality":5,"init_atk":40}
+]
