@@ -29,6 +29,16 @@ export enum UIID {
     TaskView,
     /** 好友 */
     FriendView,
+    /** 关卡挑战提示 */
+    LevelInfoView,
+    /** 准备选择员工界面 */
+    PrepareView,
+    /** 战斗界面 */
+    BattleView,
+    /** 战斗胜利界面 */
+    BattleWinView,
+    /** 战斗失败界面 */
+    BattleFailView,
 }
 
 /** 打开界面方式的配置数据 */
@@ -43,4 +53,9 @@ export var UIConfigData: { [key: number]: UIConfig } = {
     [UIID.SettingView]: { layer: LayerType.UI, prefab: "gui/setting/setting_view" },
     [UIID.TaskView]: { layer: LayerType.UI, prefab: "gui/task/task_view" },
     [UIID.FriendView]: { layer: LayerType.UI, prefab: "gui/friend/friend_view" },
+    [UIID.LevelInfoView]: { layer: LayerType.UI, prefab: "gui/adventure/level_info_view" },
+    [UIID.PrepareView]: { layer: LayerType.UI, prefab: "gui/adventure/prepare_view" },
+    [UIID.BattleView]: { layer: LayerType.UI, prefab: "gui/adventure/battle_view" },
+    [UIID.BattleWinView]: { layer: LayerType.UI, prefab: "gui/adventure/battle_win_view" },
+    [UIID.BattleFailView]: { layer: LayerType.UI, prefab: "gui/adventure/battle_fail_view" },
 }

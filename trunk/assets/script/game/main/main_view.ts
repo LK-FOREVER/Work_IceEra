@@ -9,6 +9,7 @@ import { oops } from '../../../../extensions/oops-plugin-framework/assets/core/O
 import { UIID } from '../common/config/GameUIConfig';
 import { GameData } from '../../GameData';
 import { EventTouch } from 'cc';
+import { GameEvent } from '../common/config/GameEvent';
 const { ccclass, property } = _decorator;
 
 @ccclass('main_view')
@@ -22,6 +23,15 @@ export class main_view extends Component {
     private main_player_info: Node = null!;
     private default_goods: Node = null!;
     private default_tab_index: number = 1;
+    onLoad() {
+        // 监听全局事件
+        oops.message.on(GameEvent.UpdateGoodsList, this.UpdateGoodsList, this);
+    }
+
+    onDestroy() {
+        // 对象释放时取消注册的全局事件
+        oops.message.off(GameEvent.UpdateGoodsList, this.UpdateGoodsList, this);
+    }
     start() {
         this.tab_list = this.node.getChildByName("tab_list")
         this.ui_layer = this.node.getChildByName("ui_layer")
@@ -52,12 +62,10 @@ export class main_view extends Component {
         this.default_goods.children.forEach(goods_item_bg => {
             goods_item_bg.children.forEach(goods_item => {
                 const goods_id = Number(goods_item.name.split("_")[2]);
-                console.log('goods_id', goods_id);
-                const has_goods_info = GameData.userData.goods_list.find(item => item.id === goods_id)
+                const has_goods_info = GameData.userDataProxy.goods_list.find(item => item.id === goods_id)
                 goods_item.getComponent(Label).string = Utils.formatNumber(has_goods_info?.number || 0)
             })
         })
-
 
         this.main_player_info.getChildByName("player_name").getComponent(Label).string = sys.localStorage.getItem("nickName")
     }
@@ -103,10 +111,20 @@ export class main_view extends Component {
             selected_view.setParent(this.ui_layer);
         }
         // 让功能图标只有在地图模块中显示
-        this.main_player_info.active = this.default_tab_index != 3;
-        this.default_goods.active = this.default_tab_index != 3;
+        this.main_player_info.active = true;
+        this.default_goods.active = true;
         this.function_btn_list_R.active = this.default_tab_index === 1;
         this.function_btn_list_L.active = this.default_tab_index === 1;
+    }
+
+    UpdateGoodsList() {
+        this.default_goods.children.forEach(goods_item_bg => {
+            goods_item_bg.children.forEach(goods_item => {
+                const goods_id = Number(goods_item.name.split("_")[2]);
+                const has_goods_info = GameData.userDataProxy.goods_list.find(item => item.id === goods_id)
+                goods_item.getComponent(Label).string = Utils.formatNumber(has_goods_info?.number || 0)
+            })
+        })
     }
 }
 

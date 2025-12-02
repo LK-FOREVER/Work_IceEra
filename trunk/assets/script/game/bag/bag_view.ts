@@ -21,7 +21,7 @@ export class bag_view extends GameComponent {
         const bag_goods_conf_list = all_goods_conf_list.filter(item => item.is_bag_show === 1);
 
         bag_goods_conf_list.forEach(goods_conf => {
-            const has_goods_info = GameData.userData.goods_list.find(item => item.id === goods_conf.id)
+            const has_goods_info = GameData.userDataProxy.goods_list.find(item => item.id === goods_conf.id)
             console.log('has_goods_info',has_goods_info)
             if (has_goods_info.number > 0) {
                 const common_goods_node = instantiate(this.commmon_goods);

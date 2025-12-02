@@ -12,6 +12,7 @@ import { task_item } from './task_item';
 import { ScrollView } from 'cc';
 import { Sprite } from 'cc';
 import { resources } from 'cc';
+import { JsonAsset } from 'cc';
 import { SpriteFrame } from 'cc';
 import { Label } from 'cc';
 import { Color } from 'cc';
@@ -58,14 +59,18 @@ export class task_view extends GameComponent {
         // 根据当前任务类型初始化窗口
         this.swicth_task_type(this.task_type_currently);
 
-        // 初始化日常与周常任务的配表信息
-        this.update_task_scroll(TaskType.Daily);
-        this.update_task_scroll(TaskType.Weekly);
+
         // 初始化当前进度条对象
         // this.task_daily_progress = this.node.getChildByName("task_daily_layer").getChildByName("task_box_bg").getChildByName("task_item_progress_bg");
 
         // 初始化宝箱状态
         this.init_reward_state();
+
+        // 初始化日常与周常任务的配表信息
+        this.update_task_scroll(TaskType.Daily);
+        this.update_task_scroll(TaskType.Weekly);
+        // 设置初始显示
+        this.swicth_task_type(TaskType.Daily);
 
     }
 
@@ -106,27 +111,49 @@ export class task_view extends GameComponent {
      * @param task_type 任务类型的枚举
      */
     update_task_scroll(task_type: TaskType) {
-        let task_conf_list: Record<string, any> = null;
-        // 判断任务类型，获取不同的任务列表与json
-        switch (task_type) {
-            case TaskType.Daily:
-                // 获取任务列表区域
-                this.task_scroll = this.node.getChildByName("task_daily_layer").getChildByName("task_scroll");
-                // 获取任务json
-                task_conf_list = Utils.getJsonAsset("config/data/task__get_task_daily_conf").json;
-                break;
-            case TaskType.Weekly:
-                this.task_scroll = this.node.getChildByName("task_weekly_layer").getChildByName("task_scroll");
-                task_conf_list = Utils.getJsonAsset("config/data/task__get_task_weekly_conf").json;
-                break;
-        }
-        // 再放置
-        task_conf_list.forEach(tasks_conf => {
-            const task_daily_node = instantiate(this.task_items);
-            task_daily_node.getComponent(task_item).init(tasks_conf.task_name, tasks_conf.task_reward_num);
-            task_daily_node.setParent(this.task_scroll.getComponent(ScrollView).content);
+        // 获取任务列表区域
+        this.task_scroll = task_type === TaskType.Daily
+            ? this.node.getChildByName("task_daily_layer").getChildByName("task_scroll")
+            : this.node.getChildByName("task_weekly_layer").getChildByName("task_scroll");
+
+        // 确定配置文件路径
+        const path = task_type === TaskType.Daily
+            ? "config/data/task__get_task_daily_conf"
+            : "config/data/task__get_task_weekly_conf";
+
+        // 在发起异步加载前捕获目标 ScrollView 的 content，
+        // 避免 this.task_scroll 在后续多次调用中被覆盖导致回调写入错误列表的问题。
+        const targetContent = this.task_scroll ? this.task_scroll.getComponent(ScrollView).content : null;
+
+        // 使用oops.res异步加载配置文件
+        oops.res.load(path, JsonAsset, (err: { message: any }, jsonAsset: JsonAsset | null) => {
+            if (err) {
+                console.warn(`Failed to load task config: ${err.message}`);
+                return;
+            }
+
+            if (!jsonAsset || !jsonAsset.json) {
+                console.warn(`Invalid task config loaded: ${path}`);
+                return;
+            }
+
+            if (!targetContent) {
+                console.warn(`Target scroll content missing for path: ${path}`);
+                return;
+            }
+
+            // 清空现有内容
+            targetContent.removeAllChildren();
+
+            // 创建任务项
+            jsonAsset.json.forEach(tasks_conf => {
+                const task_node = instantiate(this.task_items);
+                task_node.getComponent(task_item).init(tasks_conf.task_name, tasks_conf.task_reward_num);
+                task_node.setParent(targetContent);
+            });
         });
     }
+
 
     /**
      * 切换按钮的ui
@@ -169,6 +196,10 @@ export class task_view extends GameComponent {
     /**
      * 初始化宝箱状态，并绑定点击事件
      */
+    /**
+     * 初始化奖励状态函数
+     * 用于初始化日常任务和周任务的奖励宝箱状态，并绑定点击事件
+     */
     init_reward_state() {
         // 遍历所有日常任务的奖励宝箱，置入数组中，并依次绑定点击事件函数
         this.node.getChildByName("task_daily_layer").getChildByName("task_box_bg")
@@ -179,6 +210,7 @@ export class task_view extends GameComponent {
                     button.node.on(Button.EventType.CLICK, () => this.on_box_clicked(child), this);
                 }
             });
+        // 遍历所有周任务的奖励宝箱，置入数组中，并依次绑定点击事件函数
         this.node.getChildByName("task_weekly_layer").getChildByName("task_box_bg")
             .getChildByName("task_reward").children.forEach(child => {
                 if (child.getComponent(Button)) {

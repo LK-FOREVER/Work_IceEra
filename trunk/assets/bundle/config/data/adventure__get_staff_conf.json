@@ -1,0 +1,16 @@
+[
+    { "id": 4001, "name": "红帽爱娜", "quality": 1, "icon_id": 4001, "ability": 57},
+    { "id": 4002, "name": "眼镜龙", "quality": 1, "icon_id": 4002, "ability": 59},
+    { "id": 4003, "name": "玩偶小贝", "quality": 1, "icon_id": 4003, "ability": 60},
+    { "id": 4004, "name": "蓝发艾琳", "quality": 1, "icon_id": 4004, "ability": 61},
+    { "id": 4005, "name": "冒险家咕噜", "quality": 2, "icon_id": 4005, "ability": 78},
+    { "id": 4006, "name": "面包妍妍", "quality": 2, "icon_id": 4006, "ability": 57},
+    { "id": 4007, "name": "微笑婉婷", "quality": 2, "icon_id": 4007, "ability": 59},
+    { "id": 4008, "name": "滑雪小张", "quality": 2, "icon_id": 4008, "ability": 60},
+    { "id": 4009, "name": "围巾婷婷", "quality": 2, "icon_id": 4009, "ability": 61},
+    { "id": 4010, "name": "雪糕倩倩", "quality": 2, "icon_id": 4010, "ability": 78},
+    { "id": 4011, "name": "曲奇脆脆", "quality": 2, "icon_id": 4011, "ability": 57},
+    { "id": 4012, "name": "星尘露露", "quality": 2, "icon_id": 4012, "ability": 59},
+    { "id": 4013, "name": "草莓泡泡", "quality": 2, "icon_id": 4013, "ability": 60},
+    { "id": 4014, "name": "蜜瓜悠悠", "quality": 2, "icon_id": 4014, "ability": 61}
+]

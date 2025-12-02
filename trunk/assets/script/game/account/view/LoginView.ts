@@ -28,29 +28,23 @@ export class LoginView extends CCComp {
     }
     start() {
         this.login_btn = this.node.getChildByName("login_btn")
-
+        GameData.initUserDataProxy();
         this.login_btn.on(Button.EventType.CLICK, this.btn_handler, this)
     }
     btn_handler(event: EventTouch) {
         const event_target: Node = event.target as Node;
-        if (event_target.name == "login_btn"){
-            // 判断缓存中是否有玩家数据 如果有数据并且账号一致则用缓存数据替换gamedata中的数据
-            if (GameData.getLocalUserData() && GameStorageConfig.accountName === GameData.getLocalUserData().account){
-                const userData = GameData.getLocalUserData();
-                GameData.userData = userData;
-            }else{
-                // 使用gamedata中的数据
-                GameData.replaceData();
-            }
+        if (event_target.name == "login_btn") {
+            // GameData.userDataProxy.account = "113";
+            GameData.replaceData();
 
             // 测试数据
-            GameData.userData.goods_list.find(item => item.id === 1001).number = 1;
-            GameData.userData.goods_list.find(item => item.id === 1011).number = 99;
+            GameData.userDataProxy.goods_list.find(item => item.id === 1001).number = 0;
+            GameData.userDataProxy.goods_list.find(item => item.id === 1011).number = 0;
 
             oops.gui.open(UIID.MainView);
 
             // 将数据保存到本地
-            GameData.setUserData();
+            // GameData.setUserData();
         }
     }
 
