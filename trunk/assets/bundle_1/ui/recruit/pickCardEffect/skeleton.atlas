@@ -1,0 +1,104 @@
+
+skeleton.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bao0001
+  rotate: false
+  xy: 2, 1204
+  size: 135, 89
+  orig: 200, 171
+  offset: 21, 43
+  index: -1
+bao0003
+  rotate: false
+  xy: 301, 1152
+  size: 175, 141
+  orig: 200, 171
+  offset: 9, 16
+  index: -1
+bao0005
+  rotate: false
+  xy: 478, 1135
+  size: 162, 158
+  orig: 200, 171
+  offset: 28, 7
+  index: -1
+bao0007
+  rotate: false
+  xy: 642, 1131
+  size: 164, 162
+  orig: 200, 171
+  offset: 29, 6
+  index: -1
+bao0009
+  rotate: false
+  xy: 139, 1188
+  size: 160, 105
+  orig: 200, 171
+  offset: 28, 34
+  index: -1
+紫光
+  rotate: true
+  xy: 2, 428
+  size: 211, 1467
+  orig: 213, 1699
+  offset: 1, 116
+  index: -1
+紫卡
+  rotate: true
+  xy: 808, 1077
+  size: 216, 641
+  orig: 220, 645
+  offset: 2, 2
+  index: -1
+紫背卡
+  rotate: true
+  xy: 2, 913
+  size: 216, 641
+  orig: 220, 645
+  offset: 2, 2
+  index: -1
+红光
+  rotate: true
+  xy: 2, 215
+  size: 211, 1467
+  orig: 213, 1699
+  offset: 1, 116
+  index: -1
+红卡
+  rotate: true
+  xy: 645, 859
+  size: 216, 641
+  orig: 220, 645
+  offset: 2, 2
+  index: -1
+红背卡
+  rotate: true
+  xy: 1288, 859
+  size: 216, 641
+  orig: 220, 645
+  offset: 2, 2
+  index: -1
+黄光
+  rotate: true
+  xy: 2, 2
+  size: 211, 1467
+  orig: 213, 1699
+  offset: 1, 116
+  index: -1
+黄卡
+  rotate: true
+  xy: 2, 695
+  size: 216, 641
+  orig: 220, 645
+  offset: 2, 2
+  index: -1
+黄背卡
+  rotate: true
+  xy: 645, 641
+  size: 216, 641
+  orig: 220, 645
+  offset: 2, 2
+  index: -1

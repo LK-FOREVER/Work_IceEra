@@ -28,18 +28,13 @@ export class LoginView extends CCComp {
     }
     start() {
         this.login_btn = this.node.getChildByName("login_btn")
-        GameData.initUserDataProxy();
         this.login_btn.on(Button.EventType.CLICK, this.btn_handler, this)
     }
     btn_handler(event: EventTouch) {
         const event_target: Node = event.target as Node;
-        if (event_target.name == "login_btn") {
-            // GameData.userDataProxy.account = "113";
+        if (event_target.name == "login_btn") { // 登录 
+            // GameData.userData.account = "113";
             GameData.replaceData();
-
-            // 测试数据
-            GameData.userDataProxy.goods_list.find(item => item.id === 1001).number = 0;
-            GameData.userDataProxy.goods_list.find(item => item.id === 1011).number = 0;
 
             oops.gui.open(UIID.MainView);
 

@@ -19,4 +19,6 @@ export enum GameEvent {
     UpdateGoodsList = "UpdateGoodsList",
     /** 更新关卡 */
     UpdateLevel = "UpdateLevel",
+    /** 关闭商店 */
+    CloseShop = "CloseShop",
 }

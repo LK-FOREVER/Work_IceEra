@@ -1,0 +1,8 @@
+[
+   {"type_id":1,"desc":"随机道具","ratio_str":"75%","english_name":"Other"},
+   {"type_id":1,"desc":"紫色员工拼图","ratio_str":"20%","english_name":"Purple Staff"},
+   {"type_id":1,"desc":"橙色员工拼图","ratio_str":"5%","english_name":"Orange Staff"},
+   {"type_id":2,"desc":"紫色员工拼图","ratio_str":"65%","english_name":"Purple Staff"},
+   {"type_id":2,"desc":"橙色员工拼图","ratio_str":"30%","english_name":"Orange Staff"},
+   {"type_id":2,"desc":"红色员工拼图","ratio_str":"5%","english_name":"Red Staff"}
+]

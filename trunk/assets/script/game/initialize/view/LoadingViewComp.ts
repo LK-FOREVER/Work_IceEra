@@ -65,7 +65,7 @@ export class LoadingViewComp extends CCVMParentComp {
         oops.res.loadDir("game", this.onProgressCallback.bind(this), this.onLoadFinishHandler.bind(this));
         oops.res.loadDir("bundle_1", "ui", this.onProgressCallback.bind(this), this.onLoadFinishHandler.bind(this));
         oops.res.loadDir("bundle_1", "texture", this.onProgressCallback.bind(this), this.onLoadFinishHandler.bind(this));
-        oops.res.loadDir("config", this.onProgressCallback.bind(this), this.onLoadFinishHandler.bind(this));
+        oops.res.loadDir("bundle","config", this.onProgressCallback.bind(this), this.onLoadFinishHandler.bind(this));
         console.log("开始加载游戏资源");
     }
 

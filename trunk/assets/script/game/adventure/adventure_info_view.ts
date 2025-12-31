@@ -9,6 +9,7 @@ import { common_goods } from '../common/common_goods';
 import { GameData } from '../../GameData';
 import { UIID } from '../common/config/GameUIConfig';
 import { GameEvent } from '../common/config/GameEvent';
+import { JsonAsset } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('adventure_info_view')
@@ -29,12 +30,15 @@ export class adventure_info_view extends Component {
     @property(Node)
     reward_content: Node = null;
 
+    goodsConf: any = null;
+
     async onAdded(params: any): Promise<boolean> {
         // 清理之前的内容
         if (this.reward_content) {
             this.reward_content.removeAllChildren();
         }
         this.config = params || {};
+        await this.get_goods_config();
         await this.initUI();
         this.node.active = true;
         return true;
@@ -67,34 +71,6 @@ export class adventure_info_view extends Component {
             console.error("加载冰雕图片失败:", e);
         }
 
-        // 加载奖励道具配置
-        let goodsConf = null;
-        let retryCount = 0;
-        const maxRetries = 3;
-        // 尝试加载配置文件，最多重试3次
-        while (retryCount < maxRetries && !goodsConf) {
-            try {
-                const goodsAsset = await Utils.getJsonAsset("config/data/goods__get_goods_conf");
-                if (goodsAsset && goodsAsset.json) {
-                    goodsConf = goodsAsset.json;
-                    break;
-                }
-                retryCount++;
-                if (retryCount < maxRetries) {
-                    console.log(`配置加载失败，正在重试... (${retryCount}/${maxRetries})`);
-                    await new Promise(resolve => setTimeout(resolve, 500)); // 等待500ms后重试
-                }
-            } catch (e) {
-                console.error(`加载配置文件出错 (尝试 ${retryCount + 1}/${maxRetries}):`, e);
-                retryCount++;
-            }
-        }
-
-        if (!goodsConf) {
-            console.error("无法加载道具配置文件，请检查文件路径和格式");
-            return;
-        }
-
         // 加载奖励道具
         for (const reward of this.config.level_config.reward) {
             try {
@@ -102,7 +78,7 @@ export class adventure_info_view extends Component {
                 const goodsId = Object.keys(reward)[0];
                 const goodsNum = reward[goodsId];
 
-                const goodsInfo = goodsConf.find(item => item.id === Number(goodsId));
+                const goodsInfo = this.goodsConf.find(item => item.id === Number(goodsId));
 
                 if (goodsInfo && this.commmon_goods) {
                     const common_goods_node = instantiate(this.commmon_goods);
@@ -127,6 +103,25 @@ export class adventure_info_view extends Component {
         }
     }
 
+    get_goods_config(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            const path = "config/data/goods__get_goods_conf"
+            oops.res.load("bundle", path, JsonAsset, (err: { message: any }, jsonAsset: JsonAsset | null) => {
+                if (err) {
+                    console.warn(`Failed to load goods config: ${err.message}`);
+                    reject(err);
+                    return;
+                }
+                if (!jsonAsset || !jsonAsset.json) {
+                    console.warn(`Invalid goods config loaded: ${path}`);
+                    reject(new Error("Invalid config"));
+                    return;
+                }
+                this.goodsConf = jsonAsset.json;
+                resolve();
+            });
+        });
+    }
 
     private close() {
         if (this.reward_content.children.length > 0) {
@@ -135,10 +130,10 @@ export class adventure_info_view extends Component {
         oops.gui.removeByNode(this.node);
     }
     private challenge() {
-        let energy_num = GameData.userDataProxy.goods_list.find(item => item.id === 1024).number;
+        let energy_num = GameData.userData.goods_list[1024];
         if (energy_num >= this.config.level_config.energy_cost) {
-            GameData.userDataProxy.goods_list.find(item => item.id === 1024).number -= this.config.level_config.energy_cost;
-            console.log("剩余电量：" + GameData.userDataProxy.goods_list.find(item => item.id === 1024).number);
+            GameData.userData.goods_list[1024] -= this.config.level_config.energy_cost;
+            console.log("剩余电量：" + GameData.userData.goods_list[1024]);
             oops.message.dispatchEvent(GameEvent.UpdateGoodsList);
             oops.gui.open(UIID.PrepareView, this.config);
         }

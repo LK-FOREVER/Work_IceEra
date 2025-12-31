@@ -49,7 +49,7 @@ export class adventure_view extends GameComponent {
 
     //初始化关卡显示状态
     init_level_status() {
-        let max_unlock_level = GameData.userDataProxy.max_unlock_level;
+        let max_unlock_level = GameData.userData.max_unlock_level;
         for (let i = 0; i < this.root_level.children.length; i++) {
             let level_node = this.root_level.children[i];
             let sprite = level_node.getComponent(Sprite);
@@ -63,26 +63,26 @@ export class adventure_view extends GameComponent {
             name.getComponent(Label).string = "第" + (i + 1) + "关";
         }
         //更新进度条
-        let progress = GameData.userDataProxy.max_unlock_level / this.root_level.children.length;
+        let progress = GameData.userData.max_unlock_level / this.root_level.children.length;
         this.ProgressBar.getComponent(ProgressBar).progress = progress;
-        this.ProgressLabel.string = GameData.userDataProxy.max_unlock_level + "/" + this.root_level.children.length;
+        this.ProgressLabel.string = GameData.userData.max_unlock_level + "/" + this.root_level.children.length;
     }
     get_level_config(): Promise<void> {
         return new Promise((resolve, reject) => {
             const path = "config/data/adventure__get_level_conf"
-            oops.res.load(path, JsonAsset, (err: { message: any }, jsonAsset: JsonAsset | null) => {
+            oops.res.load("bundle", path, JsonAsset, (err: { message: any }, jsonAsset: JsonAsset | null) => {
                 if (err) {
-                    console.warn(`Failed to load task config: ${err.message}`);
+                    console.warn(`Failed to load level config: ${err.message}`);
                     reject(err);
                     return;
                 }
                 if (!jsonAsset || !jsonAsset.json) {
-                    console.warn(`Invalid task config loaded: ${path}`);
+                    console.warn(`Invalid level config loaded: ${path}`);
                     reject(new Error("Invalid config"));
                     return;
                 }
                 this.config = jsonAsset.json;
-                GameData.userDataProxy.level_config = this.config;//保存关卡配置
+                GameData.userData.level_config = this.config;//保存关卡配置
                 resolve();
             });
         });
@@ -92,7 +92,7 @@ export class adventure_view extends GameComponent {
         let level_node = event.target;
         let current_level_index = Number(level_node.name.split("level_")[1]);//第几关：1,2,3,4,...
         //判断是否已解锁
-        if (current_level_index <= GameData.userDataProxy.max_unlock_level) {
+        if (current_level_index <= GameData.userData.max_unlock_level) {
             let params: any = {
                 level_num: current_level_index,
                 level_config: this.config[current_level_index - 1] || {},

@@ -28,10 +28,10 @@ export class InitResSystem extends ecs.ComblockSystem implements ecs.IEntityEnte
     entityEnter(e: Initialize): void {
         var queue: AsyncQueue = new AsyncQueue();
 
-        // 加载自定义资源
-        this.loadCustom(queue);
-        // 加载多语言包加载多语言包
+        // 先加载多语言包（设置当前语言和加载语言资源）
         this.loadLanguage(queue);
+        // 加载自定义资源（语言设置完成后再加载语言字体）
+        this.loadCustom(queue);
         // 加载公共资源
         this.loadCommon(queue);
         // 加载游戏内容加载进度提示界面
@@ -43,11 +43,14 @@ export class InitResSystem extends ecs.ComblockSystem implements ecs.IEntityEnte
     /** 加载自定义内容（可选） */
     private loadCustom(queue: AsyncQueue) {
         queue.push(async (next: NextFunction, params: any, args: any) => {
-            // 加载多语言对应字体
-            oops.res.load("language/font/" + oops.language.current, next);
+            // 先加载全局font目录，保证工程中引用的字体都已加载
+            oops.res.loadDir("font", (err: any) => {
+                // 忽略错误，继续加载语言字体
+                oops.res.load("language/font/" + oops.language.current, next);
+            });
         });
     }
-
+ 
     /** 加载化语言包（可选） */
     private loadLanguage(queue: AsyncQueue) {
         queue.push((next: NextFunction, params: any, args: any) => {
@@ -67,6 +70,7 @@ export class InitResSystem extends ecs.ComblockSystem implements ecs.IEntityEnte
     private loadCommon(queue: AsyncQueue) {
         queue.push((next: NextFunction, params: any, args: any) => {
             oops.res.loadDir("common", next);
+            console.log("加载公共资源完成");
         });
     }
 

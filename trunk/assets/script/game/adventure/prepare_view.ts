@@ -68,7 +68,7 @@ export class prepare_view extends Component {
         this.choose_btn = this.node.getChildByName("root").getChildByName("choose_btn");
         this.choose_btn.active = this.choose_panel.active;
         this.choose_btn.on(Node.EventType.TOUCH_END, () => {
-            let choose_staff_data = GameData.userDataProxy.selectedStaff;
+            let choose_staff_data = GameData.userData.selectedStaff;
             if (!choose_staff_data) {
                 oops.gui.toast("请选择员工后再上阵");
             } else {
@@ -92,27 +92,27 @@ export class prepare_view extends Component {
                 } else {
                     if (GameData.battleData.StaffObj.length == 0) {
                         //两个站位槽都为空
-                        Utils.getSpriteFrame("ui/staff_card/" + choose_staff_data.icon_id, this.player_slot_1.getComponent(Sprite));
+                        Utils.getSpriteFrame("ui/staff_card/" + choose_staff_data.card_id, this.player_slot_1.getComponent(Sprite));
                         GameData.battleData.StaffObj.push(choose_staff_data);
                     } else if (GameData.battleData.StaffObj.length == 1) {
                         //只有一个站位槽为空
                         //检查第一个槽位是否被占用
                         if (this.player_slot_1.getComponent(Sprite).spriteFrame?.name == "prepare_empty_slot") {
-                            Utils.getSpriteFrame("ui/staff_card/" + choose_staff_data.icon_id, this.player_slot_1.getComponent(Sprite));
+                            Utils.getSpriteFrame("ui/staff_card/" + choose_staff_data.card_id, this.player_slot_1.getComponent(Sprite));
                             //始终保持GameData.battleData.StaffObj[0]对应第一个站位槽
                             GameData.battleData.StaffObj[1] = GameData.battleData.StaffObj[0];
                             GameData.battleData.StaffObj[0] = choose_staff_data;
                         }
                         else {
-                            Utils.getSpriteFrame("ui/staff_card/" + choose_staff_data.icon_id, this.player_slot_2.getComponent(Sprite));
+                            Utils.getSpriteFrame("ui/staff_card/" + choose_staff_data.card_id, this.player_slot_2.getComponent(Sprite));
                             GameData.battleData.StaffObj.push(choose_staff_data);
                         }
                     } else {
                         //两个站位槽都已满，替换第一个槽位
-                        Utils.getSpriteFrame("ui/staff_card/" + choose_staff_data.icon_id, this.player_slot_1.getComponent(Sprite));
+                        Utils.getSpriteFrame("ui/staff_card/" + choose_staff_data.card_id, this.player_slot_1.getComponent(Sprite));
                         GameData.battleData.StaffObj[0] = choose_staff_data;
                     }
-                    GameData.userDataProxy.selectedStaff = null;
+                    GameData.userData.selectedStaff = null;
                 }
                 oops.message.dispatchEvent(GameEvent.UpdateStaffChooseList, choose_staff_data.id);
                 if (GameData.battleData.StaffObj.length == 2) {
@@ -136,7 +136,7 @@ export class prepare_view extends Component {
         //一键上阵按钮
         this.one_click_btn.on(Node.EventType.TOUCH_END, () => {
             if (this.waitStaffList.length == 0) {
-                this.waitStaffList = GameData.userDataProxy.stafflist;
+                this.waitStaffList = GameData.userData.stafflist;
             }
             if (GameData.battleData.StaffObj.length == 2) {
                 //已满员,可以战斗
@@ -159,16 +159,16 @@ export class prepare_view extends Component {
             for (let i = GameData.battleData.StaffObj.length; i < 2; i++) {
                 let staff_data = this.waitStaffList[Math.floor(Math.random() * this.waitStaffList.length)];
                 if (GameData.battleData.StaffObj.length == 0) {
-                    Utils.getSpriteFrame("ui/staff_card/" + staff_data.icon_id, this.player_slot_1.getComponent(Sprite));
+                    Utils.getSpriteFrame("ui/staff_card/" + staff_data.card_id, this.player_slot_1.getComponent(Sprite));
                     GameData.battleData.StaffObj.push(staff_data);
                     //从待选择列表中移除该员工
                     this.waitStaffList = this.waitStaffList.filter(item => item.id !== staff_data.id);
                 } else if (GameData.battleData.StaffObj.length == 1) {
                     if (this.player_slot_2.getComponent(Sprite).spriteFrame?.name == "prepare_empty_slot") {
-                        Utils.getSpriteFrame("ui/staff_card/" + staff_data.icon_id, this.player_slot_2.getComponent(Sprite));
+                        Utils.getSpriteFrame("ui/staff_card/" + staff_data.card_id, this.player_slot_2.getComponent(Sprite));
                         GameData.battleData.StaffObj[1] = staff_data;
                     } else {
-                        Utils.getSpriteFrame("ui/staff_card/" + staff_data.icon_id, this.player_slot_1.getComponent(Sprite));
+                        Utils.getSpriteFrame("ui/staff_card/" + staff_data.card_id, this.player_slot_1.getComponent(Sprite));
                         GameData.battleData.StaffObj[1] = GameData.battleData.StaffObj[0];
                         GameData.battleData.StaffObj[0] = staff_data;
                     }
@@ -192,7 +192,7 @@ export class prepare_view extends Component {
             this.staffWaitList[i].destroyAllChildren();
         }
         //所有已拥有员工
-        GameData.battleData.WaitStaffList = GameData.userDataProxy.stafflist;
+        GameData.battleData.WaitStaffList = GameData.userData.stafflist;
         //排序
         this.waitStaffList = this.sortWaitStaffList(GameData.battleData.WaitStaffList);
         GameData.battleData.WaitStaffList = this.waitStaffList;
@@ -207,7 +207,7 @@ export class prepare_view extends Component {
     //待选择列表排序,按照品质和等级排序
     sortWaitStaffList(array) {
         //插入等级
-        let lvlist = GameData.userDataProxy.staffLv;
+        let lvlist = GameData.userData.staffLv;
         for (let index = 0; index < array.length; index++) {
             const staff = array[index];
             for (const key in lvlist) {
@@ -251,8 +251,8 @@ export class prepare_view extends Component {
 
         //图标
         let staff_sp = staff.getChildByName("icon").getComponent(Sprite);
-        let icon_id = data.icon_id;
-        Utils.getSpriteFrame("ui/staff_head/" + icon_id, staff_sp);
+        let head_id = data.head_id;
+        Utils.getSpriteFrame("ui/staff_head/" + head_id, staff_sp);
         //名称文本
         let name_txt = staff.getChildByName("name").getComponent(Label);
         name_txt.string = data.name;
@@ -311,7 +311,7 @@ export class prepare_view extends Component {
         }
         GameData.battleData.StaffObj = [];
         GameData.battleData.WaitStaffList = [];
-        GameData.userDataProxy.selectedStaff = null;
+        GameData.userData.selectedStaff = null;
         oops.gui.removeByNode(this.node);
     }
     private onHandler(event: string, args: any) {

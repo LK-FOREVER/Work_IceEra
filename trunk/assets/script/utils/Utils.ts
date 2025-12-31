@@ -54,23 +54,21 @@ export default class Utils {
         }
     }
     /**
-     * 加载已初始化的json资源
+     * 异步加载已初始化的 json 资源
      * @param assetsPath 资源路径
      */
-    public static getJsonAsset(assetsPath: string): JsonAsset {
+    public static async getJsonAsset(assetsPath: string): Promise<JsonAsset | null> {
         const url: string = `${assetsPath}`;
-        if (oops.res.get(url, JsonAsset) !== null) {
-            return oops.res.get(url, JsonAsset);
-        } else {
-            let loadJsonAsset: JsonAsset | null = null
-            oops.res.load(url, JsonAsset, (err: { message: any; }, jsonAsset: JsonAsset | null) => {
-                if (err) {
-                    loadJsonAsset = null
-                    return console.warn(err.message);
-                }
-                loadJsonAsset = jsonAsset
-            });
-            return loadJsonAsset
+        const cached = oops.res.get(url, JsonAsset);
+        if (cached !== null) {
+            return cached as JsonAsset;
+        }
+        try {
+            const asset = await oops.res.loadAsync<JsonAsset>(url, JsonAsset);
+            return asset as JsonAsset;
+        } catch (err: any) {
+            console.warn(err?.message || err);
+            return null;
         }
     }
     // /**
@@ -300,10 +298,11 @@ export default class Utils {
      * 通过chargeid获取充值信息
      * @param charge_id
      */
-    public static getCharge(charge_id: number) {
+    public static async getCharge(charge_id: number) {
         // 获取充值的配置
-        const charge_conf_list = Utils.getJsonAsset("config/data/charge__get_charge").json;
-        return charge_conf_list.find(item => item.charge_id === charge_id)
+        const asset = await Utils.getJsonAsset("config/data/charge__get_charge");
+        const charge_conf_list = asset ? asset.json : [];
+        return charge_conf_list.find((item: any) => item.charge_id === charge_id)
     }
 
 

@@ -1,0 +1,16 @@
+[
+   { "id": 4001, "name": "红帽爱娜", "quality": 1, "card_id": 4001, "debris_id": 5001,"head_id": 6001, "whole_id": 7001,"ability": 57,"introduce":"" },
+   { "id": 4002, "name": "眼镜龙", "quality": 1, "card_id": 4002, "debris_id": 5002,"head_id": 6002, "whole_id": 7002,"ability": 59 ,"introduce":"" },
+   { "id": 4003, "name": "玩偶小贝", "quality": 1, "card_id": 4003, "debris_id": 5003,"head_id": 6003, "whole_id": 7003,"ability": 60 ,"introduce":"" },
+   { "id": 4004, "name": "蓝发艾琳", "quality": 1, "card_id": 4004, "debris_id": 5004,"head_id": 6004, "whole_id": 7004,"ability": 61 ,"introduce":"" },
+   { "id": 4005, "name": "冒险家咕噜", "quality": 1, "card_id": 4005, "debris_id": 5005,"head_id": 6005, "whole_id": 7005,"ability": 78 ,"introduce":"" },
+   { "id": 4006, "name": "面包妍妍", "quality": 1, "card_id": 4006, "debris_id": 5006,"head_id": 6006, "whole_id": 7006,"ability": 57 ,"introduce":"" },
+   { "id": 4007, "name": "微笑婉婷", "quality": 1, "card_id": 4007, "debris_id": 5007,"head_id": 6007, "whole_id": 7007,"ability": 59 ,"introduce":"" },
+   { "id": 4008, "name": "滑雪小张", "quality": 2, "card_id": 4008, "debris_id": 5008,"head_id": 6008, "whole_id": 7008,"ability": 60 ,"introduce":"" },
+   { "id": 4009, "name": "围巾婷婷", "quality": 2, "card_id": 4009, "debris_id": 5009,"head_id": 6009, "whole_id": 7009,"ability": 61 ,"introduce":"" },
+   { "id": 4010, "name": "雪糕倩倩", "quality": 2, "card_id": 4010, "debris_id": 5010,"head_id": 6010, "whole_id": 7010,"ability": 78 ,"introduce":"" },
+   { "id": 4011, "name": "曲奇脆脆", "quality": 2, "card_id": 4011, "debris_id": 5011,"head_id": 6011, "whole_id": 7011,"ability": 61 ,"introduce":"" },
+   { "id": 4012, "name": "星尘露露", "quality": 2, "card_id": 4012, "debris_id": 5012,"head_id": 6012, "whole_id": 7012,"ability": 78 ,"introduce":"" },
+   { "id": 4013, "name": "草莓泡泡", "quality": 2, "card_id": 4013, "debris_id": 5013,"head_id": 6013, "whole_id": 7013,"ability": 78 ,"introduce":"" },
+   { "id": 4014, "name": "蜜瓜悠悠", "quality": 2, "card_id": 4014, "debris_id": 5014,"head_id": 6014, "whole_id": 7014,"ability": 78 ,"introduce":"" }
+]

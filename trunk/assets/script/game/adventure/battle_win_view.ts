@@ -65,15 +65,15 @@ export class battle_win_view extends Component {
 
         //获取下一关配置
         let next_level_num = this.config.level_num + 1;
-        let next_level_config = GameData.userDataProxy.level_config[next_level_num - 1];
+        let next_level_config = GameData.userData.level_config[next_level_num - 1];
         let params: any = {
             level_num: next_level_num,
             level_config: next_level_config,
         };
         //消耗体力（能量）
-        let energy_num = GameData.userDataProxy.goods_list.find(item => item.id === 1024).number;
+        let energy_num = GameData.userData.goods_list[1024];
         if (energy_num >= next_level_config.energy_cost) {
-            GameData.userDataProxy.goods_list.find(item => item.id === 1024).number -= next_level_config.energy_cost;
+            GameData.userData.goods_list[1024] -= next_level_config.energy_cost;
             oops.message.dispatchEvent(GameEvent.UpdateGoodsList);
             oops.gui.open(UIID.PrepareView, params);
         } else {

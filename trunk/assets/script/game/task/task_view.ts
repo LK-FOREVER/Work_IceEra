@@ -126,7 +126,7 @@ export class task_view extends GameComponent {
         const targetContent = this.task_scroll ? this.task_scroll.getComponent(ScrollView).content : null;
 
         // 使用oops.res异步加载配置文件
-        oops.res.load(path, JsonAsset, (err: { message: any }, jsonAsset: JsonAsset | null) => {
+        oops.res.load("bundle", path, JsonAsset, (err: { message: any }, jsonAsset: JsonAsset | null) => {
             if (err) {
                 console.warn(`Failed to load task config: ${err.message}`);
                 return;

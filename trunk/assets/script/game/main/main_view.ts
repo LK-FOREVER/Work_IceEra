@@ -62,8 +62,8 @@ export class main_view extends Component {
         this.default_goods.children.forEach(goods_item_bg => {
             goods_item_bg.children.forEach(goods_item => {
                 const goods_id = Number(goods_item.name.split("_")[2]);
-                const has_goods_info = GameData.userDataProxy.goods_list.find(item => item.id === goods_id)
-                goods_item.getComponent(Label).string = Utils.formatNumber(has_goods_info?.number || 0)
+                const has_goods_num = GameData.userData.goods_list[goods_id]
+                goods_item.getComponent(Label).string = Utils.formatNumber(has_goods_num || 0)
             })
         })
 
@@ -121,8 +121,8 @@ export class main_view extends Component {
         this.default_goods.children.forEach(goods_item_bg => {
             goods_item_bg.children.forEach(goods_item => {
                 const goods_id = Number(goods_item.name.split("_")[2]);
-                const has_goods_info = GameData.userDataProxy.goods_list.find(item => item.id === goods_id)
-                goods_item.getComponent(Label).string = Utils.formatNumber(has_goods_info?.number || 0)
+                const has_goods_num = GameData.userData.goods_list[goods_id]
+                goods_item.getComponent(Label).string = Utils.formatNumber(has_goods_num || 0)
             })
         })
     }

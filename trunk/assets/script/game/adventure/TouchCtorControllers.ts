@@ -26,7 +26,7 @@ export class TouchCtorControllers extends Component {
     }
 
     _touchend(event) {
-        GameData.userDataProxy.selectedStaff = this.staff_data;//将当前待选择员工数据保存到全局变量中
+        GameData.userData.selectedStaff = this.staff_data;//将当前待选择员工数据保存到全局变量中
 
         //显示选中框,只显示当前选中的员工，其他员工的选中框隐藏
         for (let i = 0; i < this.staffList.length; i++) {

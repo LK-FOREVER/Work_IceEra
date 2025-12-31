@@ -7,6 +7,7 @@ import { oops } from 'db://oops-framework/core/Oops';
 import { JsonAsset } from 'cc';
 import { UIID } from '../common/config/GameUIConfig';
 import { GameEvent } from '../common/config/GameEvent';
+import { UITransform } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('battleManager')
@@ -56,24 +57,27 @@ export class battleManager extends Component {
     }
     initUI() {
         this.skip_btn.on(Node.EventType.TOUCH_END, this.skipBattle, this);//跳过战斗
-        Utils.getSpriteFrame("ui/staff_whole/" + this.config.level_config.enemy_id[0], this.enemy_1.getComponent(Sprite));
-        Utils.getSpriteFrame("ui/staff_whole/" + this.config.level_config.enemy_id[1], this.enemy_2.getComponent(Sprite));
-        Utils.getSpriteFrame("ui/staff_whole/" + GameData.battleData.StaffObj[0].id, this.staff_1.getComponent(Sprite));
-        Utils.getSpriteFrame("ui/staff_whole/" + GameData.battleData.StaffObj[1].id, this.staff_2.getComponent(Sprite));
+        Utils.getSpriteFrame("ui/staff_whole/" + (this.config.level_config.enemy_id[0] + 3000), this.enemy_1.getComponent(Sprite));
+        Utils.getSpriteFrame("ui/staff_whole/" + (this.config.level_config.enemy_id[1] + 3000), this.enemy_2.getComponent(Sprite));
+        Utils.getSpriteFrame("ui/staff_whole/" + GameData.battleData.StaffObj[0].whole_id, this.staff_1.getComponent(Sprite));
+        Utils.getSpriteFrame("ui/staff_whole/" + GameData.battleData.StaffObj[1].whole_id, this.staff_2.getComponent(Sprite));
         Utils.getSpriteFrame("ui/ice/" + this.config.level_config.ice_id[0], this.ice_1.getComponent(Sprite));
         Utils.getSpriteFrame("ui/ice/" + this.config.level_config.ice_id[1], this.ice_2.getComponent(Sprite));
 
         // 初始化敌人进度条
+        this.enemyProgressBar.totalLength = this.enemyProgressBar.node.getComponent(UITransform).contentSize.width;
         this.enemyProgressBar.progress = 0;
         // 初始化员工进度条
+        this.staffProgressBar.totalLength = this.staffProgressBar.node.getComponent(UITransform).contentSize.width;
         this.staffProgressBar.progress = 0;
         //获取敌人的能力值
         this.enemy_ability = this.config.level_config.enemy_ablility[0] + this.config.level_config.enemy_ablility[1];
         //获取员工的等级和品质
-        const lv_staff_1 = GameData.userDataProxy.staffLv[GameData.battleData.StaffObj[0].id];
-        const lv_staff_2 = GameData.userDataProxy.staffLv[GameData.battleData.StaffObj[1].id];
+        const lv_staff_1 = GameData.userData.staffLv[GameData.battleData.StaffObj[0].id];
+        const lv_staff_2 = GameData.userData.staffLv[GameData.battleData.StaffObj[1].id];
         const quality_1 = GameData.battleData.StaffObj[0].quality;
         const quality_2 = GameData.battleData.StaffObj[1].quality;
+        console.log("staff_config:", this.staff_config);
         // 获取员工1的配置数据
         const staff1Config = this.staff_config[quality_1 - 1][quality_1.toString()].find(item => item.level === lv_staff_1);
         // 获取员工2的配置数据
@@ -98,7 +102,7 @@ export class battleManager extends Component {
     get_staff_config(): Promise<void> {
         return new Promise((resolve, reject) => {
             const path = "config/data/adventure__get_staff_upgrade_conf"
-            oops.res.load(path, JsonAsset, (err: { message: any }, jsonAsset: JsonAsset | null) => {
+            oops.res.load("bundle", path, JsonAsset, (err: { message: any }, jsonAsset: JsonAsset | null) => {
                 if (err) {
                     console.warn(`Failed to load task config: ${err.message}`);
                     reject(err);
@@ -234,11 +238,7 @@ export class battleManager extends Component {
         for (let i = 0; i < this.config.level_config.reward.length; i++) {
             let reward_id = Object.keys(this.config.level_config.reward[i])[0];
             let reward_num = Object.values(this.config.level_config.reward[i])[0];
-            GameData.userDataProxy.goods_list.forEach((item) => {
-                if (item.id == Number(reward_id)) {
-                    item.number += Number(reward_num);
-                }
-            });
+            GameData.userData.goods_list[Number(reward_id)] += Number(reward_num);
         }
 
         //更新UI
@@ -246,7 +246,7 @@ export class battleManager extends Component {
     }
     //更新关卡
     updateLevel() {
-        GameData.userDataProxy.max_unlock_level += 1;
+        GameData.userData.max_unlock_level += 1;
         oops.message.dispatchEvent(GameEvent.UpdateLevel);
     }
 }

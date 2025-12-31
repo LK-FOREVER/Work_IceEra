@@ -21,5 +21,36 @@
    {"id":1020,"icon":1020,"name":"热狗盒","desc":"残留着热狗的余温","is_bag_show":0},
    {"id":1021,"icon":1021,"name":"糖葫芦","desc":"酸酸甜甜就是我","is_bag_show":0},
    {"id":1022,"icon":1022,"name":"雪糕袋","desc":"谢谢惠顾","is_bag_show":0},
-   {"id":1023,"icon":1023,"name":"苹果核","desc":"大冷天为什么还吃苹果？","is_bag_show":0}
+   {"id":1023,"icon":1023,"name":"苹果核","desc":"大冷天为什么还吃苹果？","is_bag_show":0},
+
+   {"id":2001,"icon":2001,"invite_icon":8001,"name":"红帽爱娜拼图","quality":1},
+   {"id":2002,"icon":2002,"invite_icon":8002,"name":"眼镜龙拼图","quality":1},
+   {"id":2003,"icon":2003,"invite_icon":8003,"name":"玩偶小贝拼图","quality":1},
+   {"id":2004,"icon":2004,"invite_icon":8004,"name":"蓝发艾琳拼图","quality":1},
+   {"id":2005,"icon":2005,"invite_icon":8005,"name":"冒险家咕噜拼图","quality":1},
+   {"id":2006,"icon":2006,"invite_icon":8006,"name":"面包妍妍拼图","quality":2},
+   {"id":2007,"icon":2007,"invite_icon":8007,"name":"微笑婉婷拼图","quality":2},   
+   {"id":2008,"icon":2008,"invite_icon":8008,"name":"滑雪小张拼图","quality":2},
+   {"id":2009,"icon":2009,"invite_icon":8009,"name":"围巾婷婷拼图","quality":2},
+   {"id":2010,"icon":2010,"invite_icon":8010,"name":"雪糕倩倩拼图","quality":2},
+   {"id":2011,"icon":2011,"invite_icon":8011,"name":"曲奇脆脆拼图","quality":2},
+   {"id":2012,"icon":2012,"invite_icon":8012,"name":"星尘露露拼图","quality":2},
+   {"id":2013,"icon":2013,"invite_icon":8013,"name":"草莓泡泡拼图","quality":2},
+   {"id":2014,"icon":2014,"invite_icon":8014,"name":"蜜瓜悠悠拼图","quality":2},
+
+   {"id":4001,"icon":4001,"invite_icon":8001,"name":"红帽爱娜","quality":1},
+   {"id":4002,"icon":4002,"invite_icon":8002,"name":"眼镜龙","quality":1},
+   {"id":4003,"icon":4003,"invite_icon":8003,"name":"玩偶小贝","quality":1},
+   {"id":4004,"icon":4004,"invite_icon":8004,"name":"蓝发艾琳","quality":1},
+   {"id":4005,"icon":4005,"invite_icon":8005,"name":"冒险家咕噜","quality":1},
+   {"id":4006,"icon":4006,"invite_icon":8006,"name":"面包妍妍","quality":1},
+   {"id":4007,"icon":4007,"invite_icon":8007,"name":"微笑婉婷","quality":1},
+   {"id":4008,"icon":4008,"invite_icon":8008,"name":"滑雪小张","quality":2},
+   {"id":4009,"icon":4009,"invite_icon":8009,"name":"围巾婷婷","quality":2},
+   {"id":4010,"icon":4010,"invite_icon":8010,"name":"雪糕倩倩","quality":2},
+   {"id":4011,"icon":4011,"invite_icon":8011,"name":"曲奇脆脆","quality":2},
+   {"id":4012,"icon":4012,"invite_icon":8012,"name":"星尘露露","quality":2},
+   {"id":4013,"icon":4013,"invite_icon":8013,"name":"草莓泡泡","quality":2},
+   {"id":4014,"icon":4014,"invite_icon":8014,"name":"蜜瓜悠悠","quality":2}
+
 ]
